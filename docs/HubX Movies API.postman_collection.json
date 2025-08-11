@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "696a7263-b6be-4dee-8524-56d51baf033f",
+    "name": "HubX Movies API",
+    "description": "Postman collection for HubX Movies Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "2241959"
+  },
+  "item": [
+    {
+      "name": "Directors",
+      "item": [
+        {
+          "name": "Create Director",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Christopher\",\n  \"secondName\": \"Nolan\",\n  \"birthDate\": \"1970-07-30\",\n  \"bio\": \"Famous director\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/directors",
+              "host": ["{{baseUrl}}"],
+              "path": ["directors"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Director",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/directors/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["directors", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "Create Movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Pulp Fiction\",\n  \"description\": \"Crime movie\",\n  \"releaseDate\": \"1994-10-14\",\n  \"genre\": \"Crime\",\n  \"rating\": 9,\n  \"imdbId\": \"tt0110912\",\n  \"director\": \"<DIRECTOR_ID>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/movies",
+              "host": ["{{baseUrl}}"],
+              "path": ["movies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Movies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/movies",
+              "host": ["{{baseUrl}}"],
+              "path": ["movies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Movie",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Title\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/movies/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["movies", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Movie",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/movies/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["movies", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

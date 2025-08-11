@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: HubX Movies API
+  version: 1.0.0
+  description: Postman collection for HubX Movies Management API
+paths:
+  /directors:
+    post:
+      tags:
+        - Directors
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              firstName: Christopher
+              secondName: Nolan
+              birthDate: "1970-07-30"
+              bio: Famous director
+  /directors/{id}:
+    delete:
+      tags:
+        - Directors
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  /movies:
+    post:
+      tags:
+        - Movies
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              title: Pulp Fiction
+              description: Crime movie
+              releaseDate: "1994-10-14"
+              genre: Crime
+              rating: 9
+              imdbId: tt0110912
+              director: <DIRECTOR_ID>
+    get:
+      tags:
+        - Movies
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+  /movies/{id}:
+    put:
+      tags:
+        - Movies
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              title: Updated Title
+      parameters:
+        - &id001
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+    delete:
+      tags:
+        - Movies
+      summary: ""
+      responses:
+        "200":
+          description: Successful operation
+      parameters:
+        - *id001

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "ES6",
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@container/*": ["container/*"],
+      "@domain/*": ["domain/*"],
+      "@application/*": ["application/*"],
+      "@infrastructure/*": ["infrastructure/*"],
+      "@presentation/*": ["presentation/*"],
+      "@shared/*": ["shared/*"],
+      "@config/*": ["config/*"],
+      "@main/*": ["main/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}
