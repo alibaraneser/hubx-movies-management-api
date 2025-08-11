@@ -331,7 +331,7 @@ Set the `BASE_URL` environment variable according to your `.env` file.
 
 ## 🚀 Demo
 
-- **API URL**: 46.62.163.78/api
+- **API URL**: 46.62.163.78:3000/api
 
 ---  
 
