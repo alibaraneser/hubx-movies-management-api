@@ -1,3 +1,4 @@
+
 # 🎬 HubX Movies Management API
 
 ## 📌 Overview
@@ -5,8 +6,8 @@
 HubX Movies Management API is a RESTful backend service built with **Node.js**, **TypeScript**, and **MongoDB (Mongoose)**, designed with **Clean Architecture** principles.
 
 It manages **movies** and **directors** while providing a scalable, testable, and maintainable structure.
-
----
+  
+---  
 
 ## 🚀 Features
 
@@ -53,6 +54,10 @@ This approach enhances maintainability and scalability of the project, adhering 
 - Indexes for performance optimization (`imdbId` is unique).
 
 - Schema validation for data integrity.
+
+### 🔹 Cache
+
+- **Redis cache added:** Implemented a Redis-based caching layer to store movie data for faster retrieval. This reduces database query load and significantly improves API response times.
 
 ### 🔹 Validation
 
@@ -123,7 +128,7 @@ This approach enhances maintainability and scalability of the project, adhering 
 
 - Environment variables for flexible testing.
 
----
+---  
 
 ## 🛠 Tech Stack & Purpose
 
@@ -148,82 +153,78 @@ This approach enhances maintainability and scalability of the project, adhering 
 | Docker + docker-compose | Containerization |
 
 | GitHub Actions | CI/CD |
-
----
+  
+---  
 
 ## ⚙️ Environment Variables
 
 Create a `.env` file:
 
-```env
-
-PORT=3000
-
-MONGO_URI=mongodb://mongo:27017/hubx-movies
-
-NODE_ENV=development
-
-CORS_ORIGIN=*
-
-LOG_LEVEL=info
-
-```
-
----
+```env  
+  
+PORT=3000  
+  
+MONGO_URI=mongodb://mongo:27017/hubx-movies  
+  
+NODE_ENV=development  
+  
+CORS_ORIGIN=*  
+  
+LOG_LEVEL=info  
+  
+```  
+  
+---  
 
 ## 📂 Project Structure
 
 The project structure remains the same and follows the Clean Architecture layering:
 
-```
-.
-├── docs                               # Project documentation and reference files
-├── src                                # Main application source code
-│   ├── application                    # Application layer: business logic, DTOs, use-cases
-│   │   ├── dto                        # Data Transfer Objects for input/output handling
-│   │   │   ├── director               # DTOs specific to director operations
-│   │   │   └── movie                  # DTOs specific to movie operations
-│   │   ├── mappers                    # Mapping between entities and DTOs
-│   │   ├── ports                      # Interfaces for external dependencies
-│   │   │   ├── cache                  # Cache-related interfaces
-│   │   │   └── repositories           # Repository interfaces for data access
-│   │   │       ├── director           # Repository interfaces for directors
-│   │   │       └── movie              # Repository interfaces for movies
-│   │   └── use-cases                  # Application services implementing business rules
-│   │       ├── director               # Use-cases related to directors
-│   │       └── movie                  # Use-cases related to movies
-│   ├── config                         # Application configuration settings
-│   │   └── environments               # Environment-specific configuration (dev, prod, test)
-│   ├── container                      # Dependency injection container setup
-│   │   └── bindings                   # Bindings for services, repositories, and use-cases
-│   ├── domain                         # Core domain layer: entities and domain logic
-│   │   ├── entities                   # Domain models representing core concepts
-│   │   └── exceptions                 # Domain-specific exception classes
-│   ├── infrastructure                 # Technical implementations (DB, cache, APIs)
-│   │   └── persistence                # Persistence layer implementations
-│   │       ├── mongo                  # MongoDB-related persistence logic
-│   │       │   ├── mappers             # MongoDB entity mapping
-│   │       │   ├── models              # MongoDB schemas/models
-│   │       │   └── repositories        # MongoDB repository implementations
-│   │       └── redis                  # Redis cache implementations
-│   ├── main                           # Application entry points (bootstrapping, server setup)
-│   ├── presentation                   # Presentation layer: handling HTTP requests/responses
-│   │   └── http                       # HTTP-specific implementation
-│   │       ├── controllers            # Handle incoming HTTP requests
-│   │       ├── middlewares             # Request/response middleware logic
-│   │       ├── routes                  # API route definitions
-│   │       └── validations             # Request validation schemas
-│   └── shared                         # Shared utilities and constants across the app
-│       ├── constants                  # Constant values used across the application
-│       ├── types                      # Common type definitions
-│       └── utils                      # Helper and utility functions
-└── tests                              # Automated tests for the application
-    └── unit                           # Unit tests
-        └── application                # Unit tests for application layer
-            ├── director               # Tests for director-related logic
-            └── movie                  # Tests for movie-related logic
-
-```
+```  
+.  
+├── docs                               # Project documentation and reference files  
+├── src                                # Main application source code  
+│   ├── application                    # Application layer: business logic, DTOs, use-cases  
+│   │   ├── dto                        # Data Transfer Objects for input/output handling  
+│   │   │   ├── director               # DTOs specific to director operations  
+│   │   │   └── movie                  # DTOs specific to movie operations  
+│   │   ├── mappers                    # Mapping between entities and DTOs  
+│   │   ├── ports                      # Interfaces for external dependencies  
+│   │   │   ├── cache                  # Cache-related interfaces  
+│   │   │   └── repositories           # Repository interfaces for data access  
+│   │   │       ├── director           # Repository interfaces for directors  
+│   │   │       └── movie              # Repository interfaces for movies  
+│   │   └── use-cases                  # Application services implementing business rules  
+│   │       ├── director               # Use-cases related to directors  
+│   │       └── movie                  # Use-cases related to movies  
+│   ├── config                         # Application configuration settings  
+│   │   └── environments               # Environment-specific configuration (dev, prod, test)  
+│   ├── container                      # Dependency injection container setup  
+│   │   └── bindings                   # Bindings for services, repositories, and use-cases  
+│   ├── domain                         # Core domain layer: entities and domain logic  
+│   │   ├── entities                   # Domain models representing core concepts  
+│   │   └── exceptions                 # Domain-specific exception classes  
+│   ├── infrastructure                 # Technical implementations (DB, cache, APIs)  
+│   │   └── persistence                # Persistence layer implementations  
+│   │       ├── mongo                  # MongoDB-related persistence logic  
+│   │       │   ├── mappers             # MongoDB entity mapping  
+│   │       │   ├── models              # MongoDB schemas/models  
+│   │       │   └── repositories        # MongoDB repository implementations  
+│   │       └── redis                  # Redis cache implementations  
+│   ├── main                           # Application entry points (bootstrapping, server setup)  
+│   ├── presentation                   # Presentation layer: handling HTTP requests/responses  
+│   │   └── http                       # HTTP-specific implementation  
+│   │       ├── controllers            # Handle incoming HTTP requests  
+│   │       ├── middlewares             # Request/response middleware logic  
+│   │       ├── routes                  # API route definitions  
+│   │       └── validations             # Request validation schemas  
+│   └── shared                         # Shared utilities and constants across the app  
+│       ├── constants                  # Constant values used across the application  
+│       ├── types                      # Common type definitions  
+│       └── utils                      # Helper and utility functions  
+└── tests                              # Automated tests for the application  
+ └── unit                           # Unit tests └── application                # Unit tests for application layer ├── director               # Tests for director-related logic └── movie                  # Tests for movie-related logic  
+```  
 
 This structure ensures:
 
@@ -235,42 +236,42 @@ This structure ensures:
 
 ### 1️⃣ Clone the repo
 
-```bash
-
-git  clone  https://github.com/your-username/hubx-movies-management.git
-
-cd  hubx-movies-management
-
-```
+```bash  
+  
+git  clone  https://github.com/alibaraneser/hubx-movies-management-api.git  
+  
+cd  hubx-movies-management-api  
+  
+```  
 
 ### 2️⃣ Run with Docker (Recommended)
 
-```bash
-
-make up-detach
-```
-
----
+```bash  
+  
+make up-detach  
+```  
+  
+---  
 
 ## 🧪 Testing
 
 ### Unit tests
 
-```bash
-
-npm  run  test
-
-```
+```bash  
+  
+npm  run  test  
+  
+```  
 
 Coverage report:
 
-```bash
-
-npm  run  test:coverage
-
-```
-
----
+```bash  
+  
+npm  run  test:coverage  
+  
+```  
+  
+---  
 
 ## 📄Docs
 
@@ -278,25 +279,25 @@ npm  run  test:coverage
 
 Import the file:
 
-```
-
-docs/HubX-Movies.postman_collection.json
-
-```
+```  
+  
+docs/HubX-Movies.postman_collection.json  
+  
+```  
 
 ### Swagger
 
 Import the file:
 
-```
-
-docs/hubx_movies_api_openapi.yaml
-
-```
+```  
+  
+docs/hubx_movies_api_openapi.yaml  
+  
+```  
 
 Set the `BASE_URL` environment variable according to your `.env` file.
-
----
+  
+---  
 
 ## 🛡 Security & Logging
 
@@ -310,7 +311,7 @@ Set the `BASE_URL` environment variable according to your `.env` file.
 
 - **Morgan** → HTTP request logging.
 
----
+---  
 
 ## ⚙️ CI/CD
 
@@ -326,13 +327,13 @@ Set the `BASE_URL` environment variable according to your `.env` file.
 
 - Fails the build if coverage is below threshold.
 
----
+---  
 
 ## 🚀 Demo
 
 - **API URL**: 46.62.163.78/api
 
----
+---  
 
 ## 👨‍💻 Author
 
