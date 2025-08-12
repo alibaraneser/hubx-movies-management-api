@@ -294,8 +294,6 @@ Import the file:
 docs/hubx_movies_api_openapi.yaml  
   
 ```  
-
-Set the `BASE_URL` environment variable according to your `.env` file.
   
 ---  
 
